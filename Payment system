@@ -1,0 +1,71 @@
+import java.util.Scanner;
+
+class Payment {
+
+    void makePayment(double amount) {
+        System.out.println("Payment of " + amount + " processed");
+    }
+
+    void makePayment(double amount, String transactionId) {
+        System.out.println("Payment of " + amount +
+                " processed with Transaction ID: " + transactionId);
+    }
+}
+
+class CreditCardPayment extends Payment {
+
+    void makePayment(double amount) {
+        System.out.println("Credit Card Payment Processed: " + amount);
+    }
+}
+
+class UPIPayment extends Payment {
+
+    void makePayment(double amount) {
+        System.out.println("UPI Payment Processed: " + amount);
+    }
+}
+
+class NetBankingPayment extends Payment {
+
+    void makePayment(double amount) {
+        System.out.println("Net Banking Payment Processed: " + amount);
+    }
+}
+
+public class PaymentSystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Payment payment;
+
+        System.out.print("Enter Amount for Credit Card Payment: ");
+        double amount1 = sc.nextDouble();
+
+        payment = new CreditCardPayment();
+        payment.makePayment(amount1);
+
+        System.out.print("\nEnter Amount for Overloaded Payment: ");
+        double amount2 = sc.nextDouble();
+        sc.nextLine();
+
+        System.out.print("Enter Transaction ID: ");
+        String transactionId = sc.nextLine();
+
+        payment.makePayment(amount2, transactionId);
+
+        System.out.print("\nEnter Amount for UPI Payment: ");
+        double amount3 = sc.nextDouble();
+
+        payment = new UPIPayment();
+        payment.makePayment(amount3);
+
+        System.out.print("\nEnter Amount for Net Banking Payment: ");
+        double amount4 = sc.nextDouble();
+
+        payment = new NetBankingPayment();
+        payment.makePayment(amount4);
+
+        sc.close();
+    }
+}
