@@ -1,0 +1,66 @@
+import java.util.Scanner;
+
+abstract class Vehicle {
+    String vehicleNumber;
+    String brand;
+
+    Vehicle(String vehicleNumber, String brand) {
+        this.vehicleNumber = vehicleNumber;
+        this.brand = brand;
+    }
+
+    abstract void startEngine();
+
+    final void showVehicleIdentity() {
+        System.out.println("Vehicle Number: " + vehicleNumber);
+        System.out.println("Brand: " + brand);
+    }
+}
+
+class Car extends Vehicle {
+
+    Car(String vehicleNumber, String brand) {
+        super(vehicleNumber, brand);
+    }
+
+    void startEngine() {
+        System.out.println("Car Engine Started");
+    }
+}
+
+class Bike extends Vehicle {
+
+    Bike(String vehicleNumber, String brand) {
+        super(vehicleNumber, brand);
+    }
+
+    void startEngine() {
+        System.out.println("Bike Engine Started");
+    }
+}
+
+public class VehicleManagement {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter Car Details");
+        String carNo = sc.nextLine();
+        String carBrand = sc.nextLine();
+
+        Car car = new Car(carNo, carBrand);
+
+        car.showVehicleIdentity();
+        car.startEngine();
+
+        System.out.println("\nEnter Bike Details");
+        String bikeNo = sc.nextLine();
+        String bikeBrand = sc.nextLine();
+
+        Bike bike = new Bike(bikeNo, bikeBrand);
+
+        bike.showVehicleIdentity();
+        bike.startEngine();
+
+        sc.close();
+    }
+}
