@@ -1,0 +1,93 @@
+class BankAccount {
+    String accountNumber;
+    String accountHolderName;
+    double balance;
+
+    BankAccount(String accountNumber, String accountHolderName, double balance) {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.balance = balance;
+    }
+
+    synchronized void deposit(String userName, double amount) {
+        balance += amount;
+
+        System.out.println(userName +
+                " Deposited: " + amount +
+                " Balance: " + balance);
+    }
+
+    synchronized void withdraw(String userName, double amount) {
+
+        if (amount > balance) {
+            System.out.println(userName + " Insufficient Balance");
+        } else {
+            balance -= amount;
+
+            System.out.println(userName +
+                    " Withdrawn: " + amount +
+                    " Balance: " + balance);
+        }
+    }
+
+    void displayBalance() {
+        System.out.println("Final Balance: " + balance);
+    }
+}
+
+class UserTransaction extends Thread {
+
+    BankAccount account;
+    String userName;
+    String transactionType;
+    double amount;
+
+    UserTransaction(
+            BankAccount account,
+            String userName,
+            String transactionType,
+            double amount) {
+
+        this.account = account;
+        this.userName = userName;
+        this.transactionType = transactionType;
+        this.amount = amount;
+    }
+
+    public void run() {
+
+        if (transactionType.equalsIgnoreCase("deposit")) {
+            account.deposit(userName, amount);
+        } else {
+            account.withdraw(userName, amount);
+        }
+    }
+}
+
+public class OnlineBankingSystem {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        BankAccount account =
+                new BankAccount("1001", "Rahul", 10000);
+
+        UserTransaction t1 =
+                new UserTransaction(account, "User1", "deposit", 3000);
+
+        UserTransaction t2 =
+                new UserTransaction(account, "User2", "withdraw", 2000);
+
+        UserTransaction t3 =
+                new UserTransaction(account, "User3", "withdraw", 1500);
+
+        t1.start();
+        t2.start();
+        t3.start();
+
+        t1.join();
+        t2.join();
+        t3.join();
+
+        account.displayBalance();
+    }
+}
