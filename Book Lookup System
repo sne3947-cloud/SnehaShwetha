@@ -1,0 +1,111 @@
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Scanner;
+
+public class BookLookupSystem {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        Hashtable<Integer, String> books =
+                new Hashtable<>();
+
+        int choice;
+
+        do {
+
+            System.out.println("\n1.Add Book");
+            System.out.println("2.Search Book");
+            System.out.println("3.Remove Book");
+            System.out.println("4.Display All Books");
+            System.out.println("5.Exit");
+
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+
+                case 1:
+
+                    System.out.print("Enter Book ID: ");
+                    int id = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.print("Enter Book Title: ");
+                    String title = sc.nextLine();
+
+                    books.put(id, title);
+
+                    System.out.println("Book Added Successfully");
+                    break;
+
+                case 2:
+
+                    System.out.print("Enter Book ID: ");
+                    int searchId = sc.nextInt();
+
+                    if (books.containsKey(searchId)) {
+
+                        System.out.println("Book ID: " + searchId);
+                        System.out.println("Book Title: " +
+                                books.get(searchId));
+
+                    } else {
+
+                        System.out.println("Book Not Found");
+                    }
+
+                    break;
+
+                case 3:
+
+                    System.out.print("Enter Book ID: ");
+                    int removeId = sc.nextInt();
+
+                    if (books.containsKey(removeId)) {
+
+                        books.remove(removeId);
+
+                        System.out.println("Book Removed Successfully");
+
+                    } else {
+
+                        System.out.println("Book Not Found");
+                    }
+
+                    break;
+
+                case 4:
+
+                    if (books.isEmpty()) {
+
+                        System.out.println("No Books Available");
+
+                    } else {
+
+                        for (Map.Entry<Integer, String> entry : books.entrySet()) {
+
+                            System.out.println(
+                                    "Book ID: " + entry.getKey() +
+                                            " Book Title: " + entry.getValue());
+                        }
+                    }
+
+                    break;
+
+                case 5:
+
+                    System.out.println("Exiting...");
+                    break;
+
+                default:
+
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 5);
+
+        sc.close();
+    }
+}
