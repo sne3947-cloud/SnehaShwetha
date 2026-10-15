@@ -1,0 +1,44 @@
+class TicketBooking {
+    String passengerName;
+
+    TicketBooking(String passengerName) {
+        this.passengerName = passengerName;
+    }
+
+    void displayBooking() {
+        System.out.println("Passenger Name: " + passengerName);
+        System.out.println("Booking Status: Confirmed");
+        System.out.println("Thread Name: " + Thread.currentThread().getName());
+        System.out.println();
+    }
+}
+
+class BookingThread extends Thread {
+    TicketBooking booking;
+
+    BookingThread(TicketBooking booking) {
+        this.booking = booking;
+    }
+
+    public void run() {
+        booking.displayBooking();
+    }
+}
+
+class BookingRunnable implements Runnable {
+    TicketBooking booking;
+
+    BookingRunnable(TicketBooking booking) {
+        this.booking = booking;
+    }
+
+    public void run() {
+        booking.displayBooking();
+    }
+}
+
+public class RailwayReservationSystem {
+    public static void main(String[] args) throws InterruptedException {
+
+        BookingThread t1 =
+                new BookingThread(new 
