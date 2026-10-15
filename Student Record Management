@@ -1,0 +1,128 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Student {
+
+    int id;
+    String name;
+    String department;
+    int semester;
+
+    Student(int id, String name, String department, int semester) {
+        this.id = id;
+        this.name = name;
+        this.department = department;
+        this.semester = semester;
+    }
+
+    public String toString() {
+        return "ID: " + id +
+                ", Name: " + name +
+                ", Department: " + department +
+                ", Semester: " + semester;
+    }
+}
+
+public class StudentRecordManagement {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        ArrayList<Student> students = new ArrayList<>();
+
+        int choice;
+
+        do {
+
+            System.out.println("\n1.Add Student");
+            System.out.println("2.Remove Student");
+            System.out.println("3.Search Student");
+            System.out.println("4.Display All Students");
+            System.out.println("5.Exit");
+
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+
+                    System.out.print("Enter ID: ");
+                    int id = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.print("Enter Name: ");
+                    String name = sc.nextLine();
+
+                    System.out.print("Enter Department: ");
+                    String department = sc.nextLine();
+
+                    System.out.print("Enter Semester: ");
+                    int semester = sc.nextInt();
+
+                    students.add(new Student(id, name, department, semester));
+
+                    System.out.println("Student Record Added Successfully");
+                    break;
+
+                case 2:
+
+                    System.out.print("Enter Student ID: ");
+                    int removeId = sc.nextInt();
+
+                    boolean removed = students.removeIf(
+                            student -> student.id == removeId);
+
+                    if (removed)
+                        System.out.println("Student Record Removed Successfully");
+                    else
+                        System.out.println("Student Record Not Found");
+
+                    break;
+
+                case 3:
+
+                    System.out.print("Enter Student ID: ");
+                    int searchId = sc.nextInt();
+
+                    boolean found = false;
+
+                    for (Student student : students) {
+                        if (student.id == searchId) {
+                            System.out.println(student);
+                            found = true;
+                        }
+                    }
+
+                    if (!found)
+                        System.out.println("Student Record Not Found");
+
+                    break;
+
+                case 4:
+
+                    if (students.isEmpty()) {
+                        System.out.println("No Student Records Available");
+                    } else {
+                        for (Student student : students) {
+                            System.out.println(student);
+                        }
+                    }
+
+                    break;
+
+                case 5:
+
+                    System.out.println("Exiting...");
+                    break;
+
+                default:
+
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 5);
+
+        sc.close();
+    }
+}
